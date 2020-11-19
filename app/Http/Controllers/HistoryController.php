@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\History;
+
 class HistoryController extends Controller
 {
     /**
@@ -12,6 +14,7 @@ class HistoryController extends Controller
     public function __construct()
     {
         //
+
     }
 
     //

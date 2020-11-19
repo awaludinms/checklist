@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use App\Models\Checklist;
+
 class ChecklistController extends Controller
 {
     /**
@@ -15,4 +18,11 @@ class ChecklistController extends Controller
     }
 
     //
+
+    public function store(Request $request)
+    {
+        $input = $request->all();
+
+        
+    }
 }
