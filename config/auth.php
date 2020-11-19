@@ -1,6 +1,6 @@
 <?php
 return [
-    'default' => [
+    'defaults' => [
         'guard' => 'api',
         'password' => 'users',
     ],
@@ -8,6 +8,12 @@ return [
         'api' => [
             'driver' => 'jwt',
             'provider' => 'users'
+        ]
+    ],
+    'providers' => [
+        'users' => [
+            'driver' => 'eloquent',
+            'model' => \App\Models\User::class
         ]
     ]
 ];
