@@ -33,7 +33,7 @@ $router->group([
     $router->patch('{templateId}', 'TemplateController@update');
     $router->delete('{templateId}', 'TemplateController@destroy');
     $router->post('{templateId}/assign', 'TemplateController@assign');
-}
+});
 
 /* Checklists */
 $router->group([
@@ -46,7 +46,7 @@ $router->group([
     $router->patch('{checklistId}', 'ChecklistController@update');
     $router->delete('{checklistId}', 'ChecklistController@destroy');
     $router->get('/', 'ChecklistController@index');
-}
+});
 
 /* Items */
 $router->group([
@@ -63,7 +63,7 @@ $router->group([
     $router->post('{checklistId}/items/_bulk', 'ItemController@bulk'); // create bulk item by checklistId
     $router->get('{checklistId}/items/summaries', 'ItemController@update'); // get item summaries by checklistId
     $router->patch('items', 'ItemController@update'); // get all item
-}
+});
 
 /* History */
 $router->group([
@@ -72,4 +72,4 @@ $router->group([
 ], function($router){
     $router->get('histories', 'HistoryController@index');
     $router->get('histories/{historyId}', 'HistoryController@store');
-}
+});
