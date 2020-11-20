@@ -18,12 +18,14 @@ class CreateChecklistsTable extends Migration
             $table->string('object_domain');
             $table->string('object_id');
             $table->string('description');
-            $table->boolean('is_completed')->default(0);
+            $table->boolean('is_completed')->default(false);
             $table->datetime('completed_at')->nullable();
-            $table->string('update_by');
+            $table->string('updated_by')->nullable();
             $table->timestamps();
             $table->string('due')->nullable();
             $table->integer('urgency');
+            $table->integer('task_id')->nullable();
+            $table->integer('created_by');
         });
     }
 

@@ -17,11 +17,11 @@ class CreateItemsTable extends Migration
             $table->id();
             $table->integer('checklist_id');
             $table->string('description');
-            $table->boolean('is_completed')->default(0);
+            $table->boolean('is_completed')->default(false);
             $table->datetime('completed_at')->nullable();
             $table->string('due')->nullable();
             $table->integer('urgency')->nullable();
-            $table->string('updated_by');
+            $table->string('updated_by')->nullable();
             $table->timestamps();
             $table->string('assignee_id')->nullable();
             $table->integer('task_id');
