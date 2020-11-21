@@ -24,7 +24,7 @@ $router->get('/user/profile', 'UserController@profile');
 
 /* Checklist Templates */
 $router->group([
-    'prefix' => 'checklist/templates',
+    'prefix' => 'checklists/templates',
     'middleware' => 'auth'
 ], function($router){
     $router->get('/', 'TemplateController@index');
@@ -35,22 +35,9 @@ $router->group([
     $router->post('{templateId}/assign', 'TemplateController@assign');
 });
 
-/* Checklists */
-$router->group([
-    'prefix' => 'checklist',
-    'middleware' => 'auth'
-], function($router){
-    $router->get('{checklistId}', 'ChecklistController@index');
-    $router->post('/', 'ChecklistController@store');
-    $router->get('{checklistId}', 'ChecklistController@show');
-    $router->patch('{checklistId}', 'ChecklistController@update');
-    $router->delete('{checklistId}', 'ChecklistController@destroy');
-    $router->get('/', 'ChecklistController@index');
-});
-
 /* Items */
 $router->group([
-    'prefix' => 'checklist',
+    'prefix' => 'checklists',
     'middleware' => 'auth'
 ], function($router){
     $router->post('complete', 'ItemController@complete'); // complete item(s)
@@ -62,7 +49,19 @@ $router->group([
     $router->delete('{checklistId}/items/{itemId}', 'ItemController@update'); // delete item by checklistId and itemId
     $router->post('{checklistId}/items/_bulk', 'ItemController@bulk'); // create bulk item by checklistId
     $router->get('{checklistId}/items/summaries', 'ItemController@update'); // get item summaries by checklistId
-    $router->patch('items', 'ItemController@update'); // get all item
+    $router->get('items', 'ItemController@update'); // get all item
+});
+
+/* Checklists */
+$router->group([
+    'prefix' => 'checklists',
+    'middleware' => 'auth'
+], function($router){
+    $router->post('/', 'ChecklistController@store');
+    $router->get('{checklistId}', 'ChecklistController@show');
+    $router->patch('{checklistId}', 'ChecklistController@update');
+    $router->delete('{checklistId}', 'ChecklistController@destroy');
+    $router->get('/', 'ChecklistController@index');
 });
 
 /* History */

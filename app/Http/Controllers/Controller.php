@@ -16,4 +16,19 @@ class Controller extends BaseController
             'expires_in' => Auth::factory()->getTTL() * 60
         ]);
     }
+
+    protected function notFound()
+    {
+        return response()->json([
+            'status' => '404',
+            'error' => 'Not Found'
+        ], 404);
+    }
+
+    protected function serverError()
+    {
+        return response()->json([
+            'error' => 'Server Error',
+        ], 500);
+    }
 }
