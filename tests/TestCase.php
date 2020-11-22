@@ -14,9 +14,14 @@ abstract class TestCase extends BaseTestCase
         return require __DIR__.'/../bootstrap/app.php';
     }
 
+    protected function userAdd()
+    {
+        return App\Models\User::Factory()->create();
+    }
+
     protected function getToken()
     {
-        $user = App\Models\User::Factory()->create();
+        $user = $this->userAdd();
 
         $this->json('POST', '/login', [
             'email' => $user->email,
@@ -24,4 +29,15 @@ abstract class TestCase extends BaseTestCase
         ]);
         return json_decode($this->response->getContent(), true)['token'];
     }
+
+    protected function authorization()
+    {
+        return ['Authorize' => 'Bearer ' . $this->getToken() ];
+    }
+
+    protected function createChecklist()
+    {
+        return App\Models\Checklist::Factory()->create();
+    }
+
 }

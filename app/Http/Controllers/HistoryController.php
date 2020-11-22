@@ -18,4 +18,13 @@ class HistoryController extends Controller
     }
 
     //
+    public function index()
+    {
+
+    }
+
+    public function show($historyId)
+    {
+        
+    }
 }

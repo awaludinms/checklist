@@ -46,10 +46,10 @@ $router->group([
     $router->post('{checklistId}/items', 'ItemController@store'); // create item by given checklistId
     $router->get('{checklistId}/items/{itemId}', 'ItemController@show'); // get item bt checklistId and itemId
     $router->patch('{checklistId}/items/{itemId}', 'ItemController@update'); // update item by checklistId and itemId
-    $router->delete('{checklistId}/items/{itemId}', 'ItemController@update'); // delete item by checklistId and itemId
+    $router->delete('{checklistId}/items/{itemId}', 'ItemController@destroy'); // delete item by checklistId and itemId
     $router->post('{checklistId}/items/_bulk', 'ItemController@bulk'); // create bulk item by checklistId
     $router->get('{checklistId}/items/summaries', 'ItemController@update'); // get item summaries by checklistId
-    $router->get('items', 'ItemController@update'); // get all item
+    $router->get('items', 'ItemController@all'); // get all item
 });
 
 /* Checklists */
@@ -70,5 +70,5 @@ $router->group([
     'middleware' => 'auth'
 ], function($router){
     $router->get('histories', 'HistoryController@index');
-    $router->get('histories/{historyId}', 'HistoryController@store');
+    $router->get('histories/{historyId}', 'HistoryController@show');
 });
