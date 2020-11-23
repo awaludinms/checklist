@@ -10,6 +10,14 @@ class ItemTest extends TestCase
 {
     use DatabaseTransactions;
 
+    public function testNeedAutorization()
+    {
+        $this->get('/checklists/1/items');
+
+        $this->assertEquals('Not Authorized.', $this->response->getContent());
+        $this->assertEquals(401, $this->response->status());
+    }
+
     public function testCreateChecklistItem()
     {
         $this->getToken();
@@ -197,8 +205,48 @@ class ItemTest extends TestCase
         $this->assertEquals(200, $this->response->status());
     }
 
-    public function testUpdateBulk()
+    public function testUpdateBulkChecklist()
     {
-        
+        $this->getToken();
+
+        $checklist = Checklist::Factory()->has(Item::Factory()->count(10), 'items')
+            ->create();
+
+        $item = $checklist->items;
+
+        $body = '
+        {
+            "data": [
+            {
+                  "id": "' . $item[4]->id . '",
+                  "action": "update",
+                  "attributes": {
+                    "description": "",
+                    "due": "2019-01-19 18:34:51",
+                    "urgency": "2"
+                  }
+            },
+            {
+                  "id": "205",
+                  "action": "update",
+                  "attributes": {
+                    "description": "{{data.attributes.description}}",
+                    "due": "2019-01-19 18:34:51",
+                    "urgency": "2"
+                  }
+            }
+        ]}';
+
+        $header = ['Content-Type' => 'application/json' ];
+
+        $this->json(
+            'POST',
+            '/checklists/' . $checklist->id . '/items/_bulk',
+            json_decode($body, true),
+            $header
+        )   ;
+
+        $this->assertEquals(200, $this->response->status());
+
     }
 }
